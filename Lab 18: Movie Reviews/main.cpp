@@ -26,7 +26,6 @@ void deleteAll(Movie *&);
 
 int main(int argc, const char * argv[]) {
     Movie *head = nullptr;
-    
     int user;
     cout << "Which linked list method should we use?" << endl;
     cout << setw(WIDTH) << "[1] New nodes are added at the head of the linked list" << endl;
@@ -35,11 +34,14 @@ int main(int argc, const char * argv[]) {
     cin >> user;
     cin.ignore();
     for (int i = 0; i < SIZE; i++) {
-        int rating;
+        double rating;
         string comment;
         char cont;
-        cout << "Enter review rating(0.0 - 5.0): ";
+        cout << "Enter review rating (0.0 - 5.0): ";
         cin >> rating;
+        if (rating > 5.0) {
+            return 1;
+        }
         cin.ignore();
         cout << "Enter review comment: ";
         getline(cin,comment);
@@ -48,7 +50,7 @@ int main(int argc, const char * argv[]) {
         } else {
             //addBack(head,rating,comment);
         }
-        cout << "Enter another review: ";
+        cout << "Enter another review (Y/N): ";
         cin >> cont;
         cin.ignore();
         if (cont == 'N' || cont == 'n') {
@@ -56,6 +58,7 @@ int main(int argc, const char * argv[]) {
         }
     }
     //output(head);
+    //deleteAll(head);
     return 0;
 }
 
@@ -68,6 +71,12 @@ void addFront(Movie *&, int, string){
 void addBack(Movie *&, int, string){
     
 }
-void deleteAll(Movie *&){
-    
+void deleteAll(Movie *&head){
+    Movie *current = head;
+    while (current) {
+        head = current->next;
+        delete current;
+        current = head;
+    }
+    head = nullptr;
 }
