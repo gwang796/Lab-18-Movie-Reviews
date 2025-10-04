@@ -19,8 +19,10 @@ struct Movie{
 const int SIZE = 3;
 const int WIDTH = 5;
 
+void output(Movie *);
 void addFront(Movie *&, int, string);
 void addBack(Movie *&, int, string);
+void deleteAll(Movie *&);
 
 int main(int argc, const char * argv[]) {
     Movie *head = nullptr;
@@ -32,7 +34,40 @@ int main(int argc, const char * argv[]) {
     cout << setw(WIDTH) << "Choice: ";
     cin >> user;
     cin.ignore();
-    if (user==1) {
-        //addFront()
+    for (int i = 0; i < SIZE; i++) {
+        int rating;
+        string comment;
+        char cont;
+        cout << "Enter review rating(0.0 - 5.0): ";
+        cin >> rating;
+        cin.ignore();
+        cout << "Enter review comment: ";
+        getline(cin,comment);
+        if (user==1) {
+            //addFront(head,rating,comment);
+        } else {
+            //addBack(head,rating,comment);
+        }
+        cout << "Enter another review: ";
+        cin >> cont;
+        cin.ignore();
+        if (cont == 'N' || cont == 'n') {
+            break;
+        }
     }
+    //output(head);
+    return 0;
+}
+
+void output(Movie *){
+    
+}
+void addFront(Movie *&, int, string){
+    
+}
+void addBack(Movie *&, int, string){
+    
+}
+void deleteAll(Movie *&){
+    
 }
