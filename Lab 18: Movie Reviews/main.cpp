@@ -62,14 +62,41 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-void output(Movie *){
-    
+void output(Movie *head){
+    int count = 1;
+    Movie *current = head;
+    while (current) {
+        cout << setw(10) << "> Review #" << count++ << ": " << current->rating << ": " << current->comment << endl;
+        current = current->next;
+    }
+    cout << endl;
 }
-void addFront(Movie *&, int, string){
-    
+void addFront(Movie *&head, int rating, string comment){
+    Movie *newMovie = new Movie;
+    newMovie->rating = rating;
+    newMovie->comment = comment;
+    if (!head) {
+        newMovie->next = nullptr;
+        head = newMovie;
+    } else {
+        newMovie->next = head;
+        head = newMovie;
+    }
 }
-void addBack(Movie *&, int, string){
-    
+void addBack(Movie *&head, int rating, string comment){
+    Movie *newMovie = new Movie;
+    newMovie->rating = rating;
+    newMovie->comment = comment;
+    newMovie->next = nullptr;
+    if (!head) {
+        head = newMovie;
+    } else{
+        Movie *current = head;
+        while (current->next) {
+            current = current->next;
+        }
+        current->next = newMovie;
+    }
 }
 void deleteAll(Movie *&head){
     Movie *current = head;
