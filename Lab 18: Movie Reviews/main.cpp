@@ -8,59 +8,78 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-
+// declaring Movie struct with
 struct Movie{
     double rating;
     string comment;
     Movie *next;
     
 };
-
+//const for setw()
 const int WIDTH = 5;
 
+//function output displays data of linked list Movies
+//argument: pointer to head of linked list
+//return: none
 void output(Movie *);
+
+//function addFront adds data to head of linked list
+//argument: reference to head of linked list, double, string
+//return: none
 void addFront(Movie *&, double, string);
+
+//function addBack adds data of tail of linked list
+//argument: reference to head of linked list, double, string
+//return: none
 void addBack(Movie *&, double, string);
+
+//function deleteAll deallocates data, resets to nullptr
+//argument: reference to head of linked list
+//return: none
 void deleteAll(Movie *&);
 
 int main(int argc, const char * argv[]) {
-    Movie *head = nullptr;
+    Movie *head = nullptr; //pointer to head of linked list
+    //declaring local variables
     int user;
+    double rating;
+    string comment;
+    char cont;
+    //asking user for what node method
     cout << "Which linked list method should we use?" << endl;
     cout << setw(WIDTH) << "" << "[1] New nodes are added at the head of the linked list" << endl;
     cout << setw(WIDTH) << "" << "[2] New nodes are added at the tail of the linked list" << endl;
     cout << setw(WIDTH) << "" << "Choice: ";
     cin >> user;
+    //makes sure user input is within bounds
     if (user > 2) {
         return 1;
     }
     cin.ignore();
+    //gathering data
     while (true) {
-        double rating;
-        string comment;
-        char cont;
         cout << "Enter review rating (0.0 - 5.0): ";
         cin >> rating;
-        if (rating > 5.0) {
+        if (rating > 5.0) { //checking within bounds
             return 1;
         }
         cin.ignore();
         cout << "Enter review comment: ";
         getline(cin,comment);
         if (user==1) {
-            addFront(head,rating,comment);
+            addFront(head,rating,comment); //calling addFront function
         } else {
-            addBack(head,rating,comment);
+            addBack(head,rating,comment); //calling addBack function
         }
         cout << "Enter another review (Y/N): ";
         cin >> cont;
         cin.ignore();
-        if (cont == 'N' || cont == 'n') {
+        if (cont == 'N' || cont == 'n') { //continue or break loop
             break;
         }
     }
-    output(head);
-    deleteAll(head);
+    output(head); //calling output function
+    deleteAll(head); //calling deleteAll function
     return 0;
 }
 
@@ -90,7 +109,7 @@ void addFront(Movie *&head, double rating, string comment){
 }
 void addBack(Movie *&head, double rating, string comment){
     Movie *newMovie = new Movie;
-    newMovie->rating = rating;
+    newMovie->rating = rating; 
     newMovie->comment = comment;
     newMovie->next = nullptr;
     if (!head) {
