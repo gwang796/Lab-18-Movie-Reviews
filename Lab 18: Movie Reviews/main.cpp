@@ -16,24 +16,26 @@ struct Movie{
     
 };
 
-const int SIZE = 3;
 const int WIDTH = 5;
 
 void output(Movie *);
-void addFront(Movie *&, int, string);
-void addBack(Movie *&, int, string);
+void addFront(Movie *&, double, string);
+void addBack(Movie *&, double, string);
 void deleteAll(Movie *&);
 
 int main(int argc, const char * argv[]) {
     Movie *head = nullptr;
     int user;
     cout << "Which linked list method should we use?" << endl;
-    cout << setw(WIDTH) << "[1] New nodes are added at the head of the linked list" << endl;
-    cout << setw(WIDTH) << "[2] New nodes are added at the tail of the linked list" << endl;
-    cout << setw(WIDTH) << "Choice: ";
+    cout << setw(WIDTH) << "" << "[1] New nodes are added at the head of the linked list" << endl;
+    cout << setw(WIDTH) << "" << "[2] New nodes are added at the tail of the linked list" << endl;
+    cout << setw(WIDTH) << "" << "Choice: ";
     cin >> user;
+    if (user > 2) {
+        return 1;
+    }
     cin.ignore();
-    for (int i = 0; i < SIZE; i++) {
+    while (true) {
         double rating;
         string comment;
         char cont;
@@ -46,9 +48,9 @@ int main(int argc, const char * argv[]) {
         cout << "Enter review comment: ";
         getline(cin,comment);
         if (user==1) {
-            //addFront(head,rating,comment);
+            addFront(head,rating,comment);
         } else {
-            //addBack(head,rating,comment);
+            addBack(head,rating,comment);
         }
         cout << "Enter another review (Y/N): ";
         cin >> cont;
@@ -57,21 +59,24 @@ int main(int argc, const char * argv[]) {
             break;
         }
     }
-    //output(head);
-    //deleteAll(head);
+    output(head);
+    deleteAll(head);
     return 0;
 }
 
 void output(Movie *head){
     int count = 1;
+    double total = 0.0;
     Movie *current = head;
     while (current) {
-        cout << setw(10) << "> Review #" << count++ << ": " << current->rating << ": " << current->comment << endl;
+        cout << setw(WIDTH) << "" <<"> Review #" << count++ << ": " << current->rating << ": " << current->comment << endl;
+        total += (current->rating);
         current = current->next;
     }
+    cout << setw(WIDTH) << "" << "> Average: " << total/count << endl;
     cout << endl;
 }
-void addFront(Movie *&head, int rating, string comment){
+void addFront(Movie *&head, double rating, string comment){
     Movie *newMovie = new Movie;
     newMovie->rating = rating;
     newMovie->comment = comment;
@@ -83,7 +88,7 @@ void addFront(Movie *&head, int rating, string comment){
         head = newMovie;
     }
 }
-void addBack(Movie *&head, int rating, string comment){
+void addBack(Movie *&head, double rating, string comment){
     Movie *newMovie = new Movie;
     newMovie->rating = rating;
     newMovie->comment = comment;
