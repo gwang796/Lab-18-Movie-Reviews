@@ -53,6 +53,7 @@ int main(int argc, const char * argv[]) {
     cin >> user;
     //makes sure user input is within bounds
     if (user > 2) {
+        cout << "Invalid Choice" << endl;
         return 1;
     }
     cin.ignore();
@@ -61,6 +62,7 @@ int main(int argc, const char * argv[]) {
         cout << "Enter review rating (0.0 - 5.0): ";
         cin >> rating;
         if (rating > 5.0) { //checking within bounds
+            cout << "Invalid Choice" << endl;
             return 1;
         }
         cin.ignore();
@@ -86,45 +88,45 @@ int main(int argc, const char * argv[]) {
 void output(Movie *head){
     int count = 1;
     double total = 0.0;
-    Movie *current = head;
-    while (current) {
+    Movie *current = head; //start of linked list
+    while (current) { //loop until nullptr
         cout << setw(WIDTH) << "" <<"> Review #" << count++ << ": " << current->rating << ": " << current->comment << endl;
         total += (current->rating);
         current = current->next;
     }
-    cout << setw(WIDTH) << "" << "> Average: " << total/count << endl;
+    cout << setw(WIDTH) << "" << "> Average: " << total/(count - 1) << endl;
     cout << endl;
 }
 void addFront(Movie *&head, double rating, string comment){
     Movie *newMovie = new Movie;
     newMovie->rating = rating;
     newMovie->comment = comment;
-    if (!head) {
+    if (!head) { //first node
         newMovie->next = nullptr;
         head = newMovie;
-    } else {
-        newMovie->next = head;
+    } else { //multiple nodes
+        newMovie->next = head; //link new node to head of linked list
         head = newMovie;
     }
 }
 void addBack(Movie *&head, double rating, string comment){
     Movie *newMovie = new Movie;
-    newMovie->rating = rating; 
+    newMovie->rating = rating;
     newMovie->comment = comment;
-    newMovie->next = nullptr;
-    if (!head) {
+    newMovie->next = nullptr; //new node will be last
+    if (!head) { //first node
         head = newMovie;
-    } else{
+    } else{ //multiple nodes
         Movie *current = head;
-        while (current->next) {
+        while (current->next) { //moving to end of linked list
             current = current->next;
         }
-        current->next = newMovie;
+        current->next = newMovie; //link new node to end of linked list
     }
 }
 void deleteAll(Movie *&head){
     Movie *current = head;
-    while (current) {
+    while (current) { //loop until nullptr;
         head = current->next;
         delete current;
         current = head;
